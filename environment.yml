@@ -4,6 +4,4 @@ dependencies:
   - numpy
   - matplotlib
   - pandas
-  - pip
-  - pip:
-    - openai
+  - openai
