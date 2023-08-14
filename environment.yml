@@ -4,9 +4,8 @@ channels:
   - defaults
 dependencies:
   - python=3.9
-  - streamlit
   - numpy
   - matplotlib
   - pandas
-#  - pip:
-#    - econml
+  - pip:
+    - openai
