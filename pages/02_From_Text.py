@@ -4,9 +4,7 @@ import os
 from lib import utils
 from dotenv import load_dotenv
 
-# OpenAI key
-load_dotenv()
-openai.api_key = os.environ['OPENAI_API_KEY']
+
 
 # UI starts
 st.title("What's that language?")
