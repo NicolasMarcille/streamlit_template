@@ -4,6 +4,7 @@ from lib.st_custom_components import st_audiorec
 st.title("What's that language?")
 
 wav_audio_data = st_audiorec()
+temp_file = 'temp_file.wav'
 
 
 if wav_audio_data is not None:

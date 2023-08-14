@@ -111,7 +111,7 @@ class StAudioRec extends StreamlitComponentBase<State> {
       datetime = datetime.replace(' ', '');
       datetime = datetime.replace(/_/g, '');
       datetime = datetime.replace(',', '');
-      var filename = 'streamlit_audio_' + datetime + '.wav';
+      var filename = 'streamlit_audio_temp' + '.wav';
 
       // auromatically trigger download
       const a = document.createElement('a');
