@@ -1,7 +1,0 @@
-name: streamlit-template
-dependencies:
-  - python=3.8
-  - numpy
-  - matplotlib
-  - pandas
-  - openai
