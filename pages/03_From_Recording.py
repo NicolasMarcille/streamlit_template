@@ -3,52 +3,39 @@ from lib import utils
 import sounddevice as sd
 import numpy as np
 import threading
-# from lib.st_custom_components import st_audiorec
 
 sd.default.channels = 1
 seconds = 3
 fs = 44100
-st.session_state.recording_thread = None
-st.session_state.recording = False
+
+# Global variables
+recording = False
+data = []
 
 
-def record_audio_fn():
-    recording_data = sd.rec(int(seconds * fs), samplerate=fs)
-    sd.wait()
-    st.session_state.recording_data = recording_data
+def audio_callback(indata, frames, time, status):
+    if recording:
+        data.append(indata.copy())
 
 
-st.title("What's that language?")
+def start_recording():
+    with sd.InputStream(callback=audio_callback):
+        sd.sleep(4000)
 
-status = st.empty()
 
-if "recording" not in st.session_state:
-    st.session_state.recording = False
+st.title("Audio Recording App")
 
-if st.session_state.recording:
-    if st.button("Stop Recording"):
-        st.session_state.recording = False
-        st.session_state.recording_thread.join()  # Wait for the recording thread to complete
-    if "recording_data" in st.session_state:
-        st.write(st.session_state.recording_data)
-else:
+if not recording:
     if st.button("Start Recording"):
-        st.session_state.recording = True
-        st.session_state.recording_thread = threading.Thread(target=record_audio_fn)
-        st.session_state.recording_thread.start()
+        recording = True
+        data = []
 
+        recording_thread = threading.Thread(target=start_recording)
+        recording_thread.start()
 
-if st.button('Play'):
-    if "recording_data" in st.session_state:
-        record = st.session_state.recording_data
-        record = record * (2 ** 15 - 1) / np.max(np.abs(record))
-        record = record.astype(np.int16)
-        utils.play_audio(record)
+else:
+    if st.button("Stop Recording"):
+        recording = False
 
-
-
-######
-######
-
-wav_audio_data = st_audiorec()
-
+if data:
+    st.audio(np.concatenate(data, axis=0), format="wav")
