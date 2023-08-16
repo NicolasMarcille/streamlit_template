@@ -1,9 +1,4 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
-import logging
-import os
-import sys
 
 
 st.title("Nick's app")
@@ -18,8 +13,8 @@ text
 
 x = st.slider('My slider')
 st.write(x, 'squared is', x * x)
-st.text_input("My text input", key="text_input")
-st.session_state.text_input
+st.text_input("My text input", key="my_text_input")
+st.session_state.my_text_input
 
 if st.checkbox('Show Me'):
     test_data = "Some text hidden that can be shown"

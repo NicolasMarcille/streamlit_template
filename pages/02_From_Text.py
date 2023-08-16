@@ -5,9 +5,11 @@ from lib import utils
 # UI starts
 st.title("What's that language?")
 
-
 st.markdown("#### Enter text below:")
-input_txt = st.text_area(label="", value="")
+
+with st.form('form_text'):
+    input_txt = st.text_area(label="", value="")
+    submit = st.form_submit_button('Submit this')
 
 delimiter = "###"
 system_message = f"""
@@ -24,7 +26,7 @@ messages = [{'role': 'system', 'content': system_message},
             {'role': 'user', 'content': user_message}]
 
 response = ""
-if input_txt:
+if submit:
     response = utils.get_completion_from_messages(messages)
 
 st.markdown("The language is:")

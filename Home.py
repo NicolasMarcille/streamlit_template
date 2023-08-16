@@ -1,12 +1,17 @@
 import streamlit as st
 import openai
+import importlib
+
+# importlib.reload(utils)
+
 
 openai.api_key = st.secrets['OPENAI_API_KEY']
 
 # UI
-st.title("Nick's language identification app")
+st.title("What language is this?")
 
-st.subheader("Choose the relevant page in the side menu")
+st.subheader("The ultimate language identification app")
 
+st.markdown("#### Please click on the relevant side menu item")
 
 
