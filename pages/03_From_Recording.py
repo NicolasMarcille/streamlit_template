@@ -3,6 +3,7 @@ from lib import utils
 import sounddevice as sd
 import numpy as np
 import threading
+# from lib.st_custom_components import st_audiorec
 
 sd.default.channels = 1
 seconds = 3
@@ -50,5 +51,4 @@ if st.button('Play'):
 ######
 
 wav_audio_data = st_audiorec()
-temp_file = 'temp_file.wav'
 
