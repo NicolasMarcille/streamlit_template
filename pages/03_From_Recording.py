@@ -43,3 +43,12 @@ if st.button('Play'):
         record = record * (2 ** 15 - 1) / np.max(np.abs(record))
         record = record.astype(np.int16)
         utils.play_audio(record)
+
+
+
+######
+######
+
+wav_audio_data = st_audiorec()
+temp_file = 'temp_file.wav'
+
