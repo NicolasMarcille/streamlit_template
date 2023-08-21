@@ -25,17 +25,15 @@ def start_recording():
 
 st.title("Audio Recording App")
 
-if not recording:
-    if st.button("Start Recording"):
-        recording = True
-        data = []
+if not recording and st.button("Start Recording"):
+    recording = True
+    data = []
+    recording_thread = threading.Thread(target=start_recording)
+    recording_thread.start()
 
-        recording_thread = threading.Thread(target=start_recording)
-        recording_thread.start()
-
-else:
-    if st.button("Stop Recording"):
-        recording = False
+if recording and st.button("Stop Recording"):
+    recording = False
+    st.experimental_rerun()
 
 if data:
     st.audio(np.concatenate(data, axis=0), format="wav")
