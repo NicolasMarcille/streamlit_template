@@ -3,37 +3,54 @@ from lib import utils
 import sounddevice as sd
 import numpy as np
 import threading
+from time import sleep
 
 sd.default.channels = 1
-seconds = 3
+seconds = 5
 fs = 44100
 
-# Global variables
-recording = False
-data = []
+global data
+
+if 'audio_data' not in st.session_state:
+    st.session_state.audio_data = []
 
 
-def audio_callback(indata, frames, time, status):
-    if recording:
-        data.append(indata.copy())
+def task(event):
+    global data
+    data = sd.rec(int(seconds * fs), samplerate=fs)
+    if event.is_set():
+        sd.stop()
+        return data
+    else:
+        sd.wait()
+    return data
 
 
-def start_recording():
-    with sd.InputStream(callback=audio_callback):
-        sd.sleep(4000)
-
+event = threading.Event()
+thread = threading.Thread(target=task, args=(event,))
 
 st.title("Audio Recording App")
 
-if not recording and st.button("Start Recording"):
-    recording = True
-    data = []
-    recording_thread = threading.Thread(target=start_recording)
-    recording_thread.start()
+status = st.empty()
+status.text(st.session_state.audio_data)
 
-if recording and st.button("Stop Recording"):
-    recording = False
-    st.experimental_rerun()
+start = st.button('Start Recording')
+stop = st.button('Stop Recording')
 
-if data:
-    st.audio(np.concatenate(data, axis=0), format="wav")
+if start:
+    thread.start()
+    data = data * (2 ** 15 - 1) / np.max(np.abs(data))
+    data = data.astype(np.int16)
+    st.write(data)
+
+    if stop:
+        event.set()
+
+    thread.join()
+
+status.text(st.session_state.audio_data)
+
+
+if len(st.session_state.audio_data):
+    st.audio(st.session_state.audio_data, sample_rate=fs)
+

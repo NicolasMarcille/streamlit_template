@@ -25,7 +25,7 @@ def play_audio(audio, fs=44100):
     return 0
 
 
-def record_audio(seconds=10, fs=44100):
+def record_audio(seconds: object = 10, fs: object = 44100) -> object:
     data = sd.rec(int(seconds * fs), samplerate=fs)
     sd.wait()
     data = data * (2 ** 15 - 1) / np.max(np.abs(data))

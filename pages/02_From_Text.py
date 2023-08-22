@@ -18,7 +18,6 @@ Your task is to identify the language in which the user input text is written. T
  an empty string "", return also an empty string. If the language is uncertain give the most likely language based
  on the recognized words 
 """
-
 user_message = f"""
 In which language is the following text {delimiter}{input_txt}{delimiter}?
 """
