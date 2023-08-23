@@ -1,10 +1,10 @@
 import openai
 import numpy as np
-import sounddevice as sd
+# import sounddevice as sd
 from scipy.io.wavfile import write, read
 
 
-sd.default.channels = 1
+# sd.default.channels = 1
 
 
 def get_completion_from_messages(messages, model="gpt-3.5-turbo"):
@@ -54,15 +54,15 @@ def save_audio(recording, filename, fs=44100):
     return 0
 
 
-def play_audio(audio, fs=44100):
-    sd.play(audio, fs)
-    sd.wait()
-    return 0
-
-
-def record_audio(seconds: object = 10, fs: object = 44100) -> object:
-    data = sd.rec(int(seconds * fs), samplerate=fs)
-    sd.wait()
-    data = data * (2 ** 15 - 1) / np.max(np.abs(data))
-    data = data.astype(np.int16)
-    return data
+# def play_audio(audio, fs=44100):
+#     sd.play(audio, fs)
+#     sd.wait()
+#     return 0
+#
+#
+# def record_audio(seconds: object = 10, fs: object = 44100) -> object:
+#     data = sd.rec(int(seconds * fs), samplerate=fs)
+#     sd.wait()
+#     data = data * (2 ** 15 - 1) / np.max(np.abs(data))
+#     data = data.astype(np.int16)
+#     return data
