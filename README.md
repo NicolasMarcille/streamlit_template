@@ -1,4 +1,4 @@
-# Nic's App
+# Light language identification app
 
 The app is work in progress. Please click on the following link to open the app.
 
