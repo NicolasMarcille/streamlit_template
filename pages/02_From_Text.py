@@ -12,7 +12,7 @@ go_home = st.button("Home")
 if go_home:
     switch_page("home")
 
-st.title("What's the language?")
+st.title("What language is it?")
 
 st.markdown("#### Enter text below:")
 
