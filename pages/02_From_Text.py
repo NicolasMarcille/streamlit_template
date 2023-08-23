@@ -1,6 +1,9 @@
 import streamlit as st
 from lib import utils
 
+if 'language' not in st.session_state:
+    st.session_state.language = ""
+
 
 # UI starts
 st.title("What's that language?")
@@ -11,23 +14,10 @@ with st.form('form_text'):
     input_txt = st.text_area(label="", value="")
     submit = st.form_submit_button('Submit this')
 
-delimiter = "###"
-system_message = f"""
-Your task is to identify the language in which the user input text is written. The user input text will be delimited
- by {delimiter}. Provide your answer with only one word, the name of the language. In the case where the input text is
- an empty string "", return also an empty string. If the language is uncertain give the most likely language based
- on the recognized words 
-"""
-user_message = f"""
-In which language is the following text {delimiter}{input_txt}{delimiter}?
-"""
-messages = [{'role': 'system', 'content': system_message},
-            {'role': 'user', 'content': user_message}]
-
 response = ""
 if submit:
-    response = utils.get_completion_from_messages(messages)
+    st.session_state.language = utils.find_language(input_txt)
 
-st.markdown("The language is:")
-st.markdown(f"#### {response}")
-
+if st.session_state.language:
+    st.markdown("##### The language is:")
+    st.markdown(f"### {st.session_state.language}")

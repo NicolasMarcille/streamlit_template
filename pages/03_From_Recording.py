@@ -1,56 +1,34 @@
 import streamlit as st
-from lib import utils
-import sounddevice as sd
+from st_custom_components import st_audiorec
 import numpy as np
-import threading
-from time import sleep
-
-sd.default.channels = 1
-seconds = 5
-fs = 44100
-
-global data
-
-if 'audio_data' not in st.session_state:
-    st.session_state.audio_data = []
+import openai
+from lib import utils
 
 
-def task(event):
-    global data
-    data = sd.rec(int(seconds * fs), samplerate=fs)
-    if event.is_set():
-        sd.stop()
-        return data
-    else:
-        sd.wait()
-    return data
+if 'language' not in st.session_state:
+    st.session_state.language = ""
+
+if 'transcript' not in st.session_state:
+    st.session_state.transcript = ""
 
 
-event = threading.Event()
-thread = threading.Thread(target=task, args=(event,))
+st.title("What's that language?")
 
-st.title("Audio Recording App")
+st.markdown("#### Record voice amd submit")
 
-status = st.empty()
-status.text(st.session_state.audio_data)
+with st.container():
+    wav_audio_data = st_audiorec()
+    if wav_audio_data is not None:
+        with open('temp_file.wav', 'wb') as fp:
+            fp.write(wav_audio_data)
 
-start = st.button('Start Recording')
-stop = st.button('Stop Recording')
-
-if start:
-    thread.start()
-    data = data * (2 ** 15 - 1) / np.max(np.abs(data))
-    data = data.astype(np.int16)
-    st.write(data)
-
-    if stop:
-        event.set()
-
-    thread.join()
-
-status.text(st.session_state.audio_data)
+with st.container():
+    response = ""
+    if st.button('Submit'):
+        st.session_state.transcript = utils.transcribe_audio('temp_file.wav')
+        st.session_state.language = utils.find_language(st.session_state.transcript)
 
 
-if len(st.session_state.audio_data):
-    st.audio(st.session_state.audio_data, sample_rate=fs)
-
+if st.session_state.language:
+    st.markdown("##### The language is:")
+    st.markdown(f"### {st.session_state.language}")
