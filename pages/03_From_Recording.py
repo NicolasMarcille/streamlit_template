@@ -1,6 +1,7 @@
 import streamlit as st
 from st_custom_components import st_audiorec
 from lib import utils
+from streamlit_extras.switch_page_button import switch_page
 
 
 if 'language' not in st.session_state:
@@ -9,6 +10,9 @@ if 'language' not in st.session_state:
 if 'transcript' not in st.session_state:
     st.session_state.transcript = ""
 
+go_home = st.button("Home")
+if go_home:
+    switch_page("home")
 
 st.title("What's the language?")
 

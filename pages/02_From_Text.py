@@ -1,11 +1,17 @@
 import streamlit as st
 from lib import utils
+from streamlit_extras.switch_page_button import switch_page
+
 
 if 'language' not in st.session_state:
     st.session_state.language = ""
 
 
 # UI starts
+go_home = st.button("Home")
+if go_home:
+    switch_page("home")
+
 st.title("What's the language?")
 
 st.markdown("#### Enter text below:")

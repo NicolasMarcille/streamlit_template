@@ -1,15 +1,20 @@
 import streamlit as st
 import openai
-import importlib
+from streamlit_extras.switch_page_button import switch_page
 
-# importlib.reload(utils)
 
 openai.api_key = st.secrets['OPENAI_API_KEY']
 
 # UI
-st.title("What language is this?")
+st.title("What language is it?")
 
-st.subheader("The ultimate language identification app")
+st.markdown("#### The ultimate lightweight language identification app")
 
-st.markdown("#### Please click on the relevant side menu item")
+goto_text = st.button("From text input")
+goto_audio = st.button("From audio input")
 
+if goto_text:
+    switch_page("from text")
+
+if goto_audio:
+    switch_page("from recording")

@@ -4,3 +4,4 @@ openai
 sounddevice
 numpy
 scipy
+streamlit-extras
