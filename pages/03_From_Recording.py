@@ -1,19 +1,34 @@
 import streamlit as st
-from lib.st_custom_components import st_audiorec
+from st_custom_components import st_audiorec
+import numpy as np
+import openai
+from lib import utils
+
+
+if 'language' not in st.session_state:
+    st.session_state.language = ""
+
+if 'transcript' not in st.session_state:
+    st.session_state.transcript = ""
+
 
 st.title("What's that language?")
 
-wav_audio_data = st_audiorec()
-temp_file = 'temp_file.wav'
+st.markdown("#### Record voice amd submit")
+
+with st.container():
+    wav_audio_data = st_audiorec()
+    if wav_audio_data is not None:
+        with open('temp_file.wav', 'wb') as fp:
+            fp.write(wav_audio_data)
+
+with st.container():
+    response = ""
+    if st.button('Submit'):
+        st.session_state.transcript = utils.transcribe_audio('temp_file.wav')
+        st.session_state.language = utils.find_language(st.session_state.transcript)
 
 
-if wav_audio_data is not None:
-    # display audio data as received on the backend
-    st.audio(wav_audio_data, format='audio/wav')
-
-# INFO: by calling the function an instance of the audio recorder is created
-# INFO: once a recording is completed, audio data will be saved to wav_audio_data
-
-
-
-
+if st.session_state.language:
+    st.markdown("##### The language is:")
+    st.markdown(f"### {st.session_state.language}")
