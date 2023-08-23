@@ -16,7 +16,7 @@ if go_home:
 
 st.title("What language is it?")
 
-st.markdown("#### Record voice amd submit")
+st.markdown("#### Record voice and submit:")
 
 with st.form('form_audio'):
     wav_audio_data = st_audiorec()
