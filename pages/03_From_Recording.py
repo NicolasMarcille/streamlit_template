@@ -1,7 +1,5 @@
 import streamlit as st
 from st_custom_components import st_audiorec
-import numpy as np
-import openai
 from lib import utils
 
 
