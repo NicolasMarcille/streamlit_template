@@ -18,7 +18,7 @@ st.title("What language is it?")
 
 st.markdown("#### Record voice amd submit")
 
-with st.form('form_audio'):
+with st.container():
     wav_audio_data = st_audiorec()
     if wav_audio_data is not None:
         with open('temp_file.wav', 'wb') as fp:
