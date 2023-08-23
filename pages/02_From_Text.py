@@ -6,7 +6,7 @@ if 'language' not in st.session_state:
 
 
 # UI starts
-st.title("What's that language?")
+st.title("What's the language?")
 
 st.markdown("#### Enter text below:")
 

@@ -13,4 +13,3 @@ st.subheader("The ultimate language identification app")
 
 st.markdown("#### Please click on the relevant side menu item")
 
-

@@ -10,7 +10,7 @@ if 'transcript' not in st.session_state:
     st.session_state.transcript = ""
 
 
-st.title("What's that language?")
+st.title("What's the language?")
 
 st.markdown("#### Record voice amd submit")
 
