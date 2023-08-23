@@ -14,18 +14,16 @@ st.title("What's that language?")
 
 st.markdown("#### Record voice amd submit")
 
-with st.container():
+with st.form('form_audio'):
     wav_audio_data = st_audiorec()
     if wav_audio_data is not None:
         with open('temp_file.wav', 'wb') as fp:
             fp.write(wav_audio_data)
+    submit = st.form_submit_button('Submit this')
 
-with st.container():
-    response = ""
-    if st.button('Submit'):
-        st.session_state.transcript = utils.transcribe_audio('temp_file.wav')
-        st.session_state.language = utils.find_language(st.session_state.transcript)
-
+if submit:
+    st.session_state.transcript = utils.transcribe_audio('temp_file.wav')
+    st.session_state.language = utils.find_language(st.session_state.transcript)
 
 if st.session_state.language:
     st.markdown("##### The language is:")
