@@ -5,3 +5,4 @@ sounddevice
 numpy
 scipy
 streamlit-extras
+streamlit-mic-recorder

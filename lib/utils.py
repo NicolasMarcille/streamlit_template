@@ -32,7 +32,6 @@ def find_language(text):
                 {'role': 'user', 'content': user_message}]
 
     response = get_completion_from_messages(messages)
-    print(response)
     return response
 
 
