@@ -16,7 +16,7 @@ def whisper_stt(openai_api_key=None, start_prompt="Start recording", stop_prompt
     if key and not key + '_output' in st.session_state:
         st.session_state[key + '_output'] = None
     audio = mic_recorder(start_prompt=start_prompt, stop_prompt=stop_prompt, just_once=just_once,
-                         use_container_width=use_container_width,format="webm", key=key)
+                         use_container_width=use_container_width, format="wav", key=key)
     new_output = False
     if audio is None:
         output = None
