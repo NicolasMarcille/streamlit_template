@@ -42,7 +42,7 @@ def whisper_stt(openai_api_key=None, start_prompt="Start recording", stop_prompt
                     err += 1
                 else:
                     success = True
-                    output = transcript.text
+                    output = transcript
                     st.session_state._last_speech_to_text_transcript = output
         elif not just_once:
             output = st.session_state._last_speech_to_text_transcript

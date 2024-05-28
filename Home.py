@@ -7,21 +7,12 @@ from streamlit_extras.switch_page_button import switch_page
 
 st.title("Audio peep")
 
-
-if 'transcript' not in st.session_state:
-    st.session_state.transcript = None
-
-text = whisper_stt(start_prompt="Start",
-                   stop_prompt="Stop",
-                   use_container_width=True)
+transcript = whisper_stt(start_prompt="START",
+                         stop_prompt="STOP",
+                         use_container_width=True)
 # If you don't pass an API key, the function will attempt to retrieve it as an environment variable : 'OPENAI_API_KEY'.
 
-if text:
-    st.session_state.transcript = text
-
-    st.markdown(f"#### Translating from : {find_language(text)}")
-    st.markdown("##### Translation is:")
-    st.markdown(f"### {translate(text)}")
-
-
-
+if transcript:
+    st.markdown(f"#### Translating from: {find_language(transcript.text)}")
+    c = st.container(height=100, border=True)
+    c.markdown(f"#### {translate(transcript.text)}")
