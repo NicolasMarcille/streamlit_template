@@ -19,10 +19,8 @@ text = whisper_stt(start_prompt="Start",
 if text:
     st.session_state.transcript = text
 
-    st.markdown("##### The language is:")
-    st.markdown(f"### {find_language(text)}")
-
-    st.markdown("##### The translation in English is:")
+    st.markdown(f"#### Translating from : {find_language(text)}")
+    st.markdown("##### Translation is:")
     st.markdown(f"### {translate(text)}")
 
 
