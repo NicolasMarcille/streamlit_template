@@ -45,36 +45,3 @@ def translate(text):
 
     response = get_completion_from_messages(messages)
     return response
-
-
-def create_frequency(frequency=440, seconds=1, fs=44100):
-    t = np.linspace(0, seconds, seconds * fs, False)
-    note = np.sin(frequency * t * 2 * np.pi)
-    audio = note * (2 ** 15 - 1) / np.max(np.abs(note))
-    audio = audio.astype(np.int16)
-    return audio
-
-
-def read_audio(filename):
-    fs, wav = read(filename)
-    return wav
-
-
-def save_audio(recording, filename, fs=44100):
-    write(filename, fs, recording)
-    return 0
-
-
-# import sounddevice
-# def play_audio(audio, fs=44100):
-#     sd.play(audio, fs)
-#     sd.wait()
-#     return 0
-#
-#
-# def record_audio(seconds: object = 10, fs: object = 44100) -> object:
-#     data = sd.rec(int(seconds * fs), samplerate=fs)
-#     sd.wait()
-#     data = data * (2 ** 15 - 1) / np.max(np.abs(data))
-#     data = data.astype(np.int16)
-#     return data
