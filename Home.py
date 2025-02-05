@@ -10,7 +10,8 @@ st.title("Audio peep")
 transcript = whisper_stt(start_prompt="START",
                          stop_prompt="STOP",
                          use_container_width=True)
-# If you don't pass an API key, the function will attempt to retrieve it as an environment variable : 'OPENAI_API_KEY'.
+# If you don't pass an API key, the function will attempt to retrieve it as
+# an environment variable : 'OPENAI_API_KEY'.
 
 if transcript:
     st.markdown(f"#### Translating from: {find_language(transcript.text)}")
